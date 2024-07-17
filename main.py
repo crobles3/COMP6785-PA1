@@ -1,5 +1,5 @@
-# Asignacion de Programacion 1 (PA1) - Alcibiades Bustillo - COMP6785
-# Creado por: Christian Robles
+# Project Assignment 1 (PA1) - Alcibiades Bustillo - COMP6785
+# Created by: Christian Robles
 
 from Graph import Graph
 from DFS import *
@@ -7,158 +7,158 @@ from ConnectedComponent import *
 
 
 def main():
-    # Breve intoduccion a lo que hace el programa
+    # Breve Introduction.
     print(
         "\n=========================================================================\n"
         "                            PA1 - COMP6785                               \n"
         "=========================================================================\n"
-        "Este programa permite obtener el orden topologico, determinar si hay\n"
-        "ciclos, o contar los componentes conexos para un Grafo dado."
+        "This program allows you to get the topological order, determine if\n"
+        "there are cycles, or count the number of connected components for\n"
+        "a given graph."
     )
 
-    # Instrucciones de como proveerle el grafo al programa
+    # Instructions on how to provide the graph.
     print(
-        "\nComo pasar el Grafo al programa: \n"
-        "El grafo se pasa al programa mediante un archivo .txt ubicado dentro\n"
-        "de la carpeta nombrada como data/. El nombre debe seguir el siguiente\n"
-        "formato: <nombre>DG.txt si es un Grafo dirigido o <nombre>G.txt si es\n"
-        "un Grafo no dirigido, donde <nombre> puede ser cualquier concatenacion\n"
-        "de caracteres."
+        "\nHow to provide the graph: \n"
+        "The graph is provided to the program in a .txt file located inside\n"
+        "the folder named 'data'. The name must follow the following format:\n"
+        "\t<name>DG.txt if it is a directed graph or <name>G.txt\n"
+        "\tif is not a directed graph, where <name> can be any\n"
+        "\tgroup of characters."
     )
 
-    # Aviso sobre como el programa determina si un grafo es o no es dirigido
+    # Note about how the program determines if the graph is directed or not.
     print(
-        "\nNota: una D (mayuscula) en la penultima posicion del nombre indica que\n"
-        "el grafo es dirigido."
+        "\nNote: a 'D' (uppercase) on the second from right to left\n"
+        "position, means that the given graph is directed."
     )
 
-    # Instrucciones sobre el formato que se espera en el archivo
+    # Instructions about the file's format.
     print(
-        "\nEstructura del archivo: \n"
-        "Primera linea contiene un entero unico n que indica la cantidad de\n"
-        "vertices. Segunda linea contiene un entero unico e que indica cuantas\n"
-        "aristas hay en el Grafo. Las lineas restantes contienen dos enteros\n"
-        "separados por espacios en blanco, digamos u y v, los cuales representan\n"
-        "la arista que los conecta (u, v).\n"
+        "\nFile Structure: \n"
+        "The first line contains a unique integer that indicates the number of\n"
+        "nodes. The second line contains another unique integer that indicates\n"
+        "the amounts of edges in the graph. The remaining lines contain space\n"
+        "separated integer pairs, lets call them u and v, which represents the\n"
+        "edge that connects u and v nodes.\n"
     )
 
-    name = ""  # Se inicializa la variable del nombre del archivo
+    name = ""  # Initialize a variable for the file name.
     while (
         True
-    ):  # Se itera infinitamente hasta que se provea un nombre correspodiente a un archivo en la carpeta de data
-        try:  # Trate de abrir un archivo basado en el nombre provisto por el usuario
+    ):  # Iterate until a file name found in the data folder is found, or execution is finished.
+        try:  # Tries to open a file based on the given name.
             print(
-                "Escriba 'salir' para terminar ejecucion..."
-            )  # Mensaje para indicarle al usario como terminar el programa
+                "Enter 'exit' to finish execution..."
+            )  # Note on how to finish execution.
             name = input(
-                "Nombre del archivo (sin .txt): "
-            )  # El usuario entra el nombre del archivo
+                "File Name (without .txt): "
+            )  # User provide the name of the file.
             file = open(
                 "data/" + name + ".txt", "r"
-            )  # Se busca y se abre el archivo con formato .txt en la carpeta data
-            break  # Se rompe el ciclo infinito
-        except:  # Captura si ocurre un error al intentar abrir el archivo
-            if name == "salir":  # Verifica si el usuario ingraso 'salir'
-                return  # Termina inmediantamente ejecucion del programa
+            )  # Looks and opens the .txt file in the data folder.
+            break  # Exit infinite loop.
+        except:  # Catches if an error occurs trying to open the file.
+            if name == "exit":  # Verifies if the user entered 'exit'.
+                return  # Terminates program execution.
             print(
-                "\nNo se encontro ningun archivo con el nombre {}.txt, intentelo de nuevo...\n".format(
+                "\nNo file named {}.txt was found, please try again...\n".format(
                     name
                 )
             )
 
-    n = int(next(file))  # Se extrae la primera linea del archivo
-    e = int(next(file))  # Se extrae la segunda linea del acrhivo
+    n = int(next(file))  # Get the first line of the file.
+    e = int(next(file))  # Get the second line of the file.
 
     directed = (
         name[-2] == "D"
-    )  # Busca el penultimo caracter de nombre ingresado y lo compara con 'D'
-    # Asi se determina si el grafo es o no es dirigido
+    )  # Gets the second character from right to left and determines if is directed.
 
     G = Graph(
         directed
-    )  # Se crea un grafo G al cual se le indica si es o no es dirigido
+    )  # Graph G is created.
 
-    print("\nLeyendo el Grafo...\n")
+    print("\nReading the graph...\n")
     for (
         line
     ) in (
         file.readlines()
-    ):  # Se itera por las lineas restantes del archivo (contienen las aristas)
+    ):  # Iterates through the remaining lines of the file (the edges).
         (
             u,
             v,
         ) = (
             line.split()
-        )  # Se divide la linea en dos enteros asignados a u y v respectivamente
-        G.add_vertex(u)  # Se añade el valor de u al grafo G
-        G.add_vertex(v)  # Se añade el valor de v al grafo G
-        G.add_edge(u, v)  # Se crea y se añade la arista (u,v) al grafo G
+        )  # Line is divided into two integers, u and v (nodes of the edge).
+        G.add_vertex(u)  # Add node u to the graph.
+        G.add_vertex(v)  # Add node v to the graph.
+        G.add_edge(u, v)  # Add the edge (u,v) to the graph.
 
-    file.close()  # Se cierra el archivo
+    file.close()  # Close the file.
 
-    # Se imprimen las opciones en la consola
-    print("Seleccione una de las siguientes opciones:")
-    print("1. Conseguir el orden topologico del Grafo.")
-    print("2. Determinar si el Grafo tiene al menos un ciclo.")
-    print("3. Contar los componentes conexos del Grafo.\n")
+    # Print options to the console.
+    print("Choose on of the following options:")
+    print("1. Find the topological order of the graph.")
+    print("2. Determine if the graph has at least on cycle.")
+    print("3. Count the connected components of the graph.\n")
 
-    opt = ""  # Se inicializa la varible que va a guardar la opcion seleccionada
+    opt = ""  # Initialize a variable to store the option value.
     while (
         True
-    ):  # Se itera infinitamente hasta que se provea una de las opciones correctas
+    ):  # Iterate until one of the allowed options is provided.
         print(
-            "Escriba 'salir' para terminar ejecucion..."
-        )  # Mensaje para indicarle al usario como terminar el programa
+                "Enter 'exit' to finish execution..."
+        )  # Indicates the user how to terminate execution.
         opt = input(
-            "Indique el numero de la opcion pertinente: "
-        )  # Usuario entra opcion deaseada
-        if opt == "salir":  # Verifica si el usuario ingraso 'salir'
-            return  # Termina inmediantamente ejecucion del programa
-        if opt in ["1", "2", "3"]:  # Verifica si la opcion entrada es 1, 2, o 3
-            break  # Rompe el ciclo infinito ya que una de las opciones disponibles fue provista
+            "Enter the number of the desired option: "
+        )  # User enters the desired option.
+        if opt == "exit":  # Verifies if the user entered 'exit'.
+            return  # Terminates program execution.
+        if opt in ["1", "2", "3"]:  # Verifies if the provided option is 1, 2, or 3.
+            break  # Exits infinite loop.
         print(
-            "\nPor favor provea un valor que sea 1, 2, o 3.\n"
-        )  # Mensaje indicando las opciones disponibles
+            "\nPlease provide one of the available options.\n"
+        )  # Note to the user about the available options.
 
     print(
-        "\nOpcion {} seleccionada...".format(opt)
-    )  # Se imprime un mensaje indicando la opcion selccionada
+        "\nOption {} selected...".format(opt)
+    )  # Indicates the chosen option to the user.
 
-    if opt == "1":  # Verifica si la opcion seleccionada fue la 1
-        if not directed:  # Verifica si el grafo no es dirigido
-            # Imprime mensaje para orden topologico de un grafo no dirigido
+    if opt == "1":  # Verifies if option 1 was selected.
+        if not directed:  # Verifies if the graph is not directed.
+            # Can't determine the topological order of a directed graph.
             print(
-                ">> El Grafo debe ser dirigido para poder conseguir su orden topologico."
+                ">> Graph has to be directed in order to determine topological order."
             )
-        else:  # Grafo es dirigido
-            cycles, order = DFS(G)  # Se la aplica DFS (Depth First Search) al grafo G
-            if cycles:  # Verifica si el grafo tiene ciclos
-                # Imprime mensaje para orden topologico de un grafo ciclico
+        else:  # Is directed graph.
+            cycles, order = DFS(G)  # Applies DFS (Depth First Search) to the graph.
+            if cycles:  # Verifies if the graph has cycles
+                # Can't have cycles in order to determine topological order.
                 print(
-                    ">> El Grafo no puede contener ciclos para poder obtener un orden topologico adecuado."
+                    ">> Graph can't have cycles in order to find the correct topological order."
                 )
-            else:  # No tiene ciclos
-                arr = order.to_array()  # Se obtiene un arreglo con el orden topologico
-                print(">> Orden Topologico: ")
+            else:  # Doesn't have cycles
+                arr = order.to_array()  # Array with topological order.
+                print(">> Topological Order: ")
                 print(
                     ">>", " -> ".join(arr)
-                )  # Se imprime el orden topologico obtenido con -> indicando la direccion
-    elif opt == "2":  # Verifica si la opcion seleccionada fue la 2
-        cycles, _ = DFS(G)  # Se la aplica DFS (Depth First Search) al grafo G
-        if cycles:  # Verifica si el grafo tiene ciclos
-            # Imprime mensaje para un grafo ciclico
-            print(">> El Grafo contiene al menos un ciclo.")
-        else:  # No tiene ciclos
-            # Imprime mensaje para un grafo aciclico
-            print(">> No se encontro ningun ciclo en el Grafo.")
-    else:  # Si no es opcion 1 o 2, pues debe ser opcion 3
-        count = ConnectedComponent(G)  # Se le aplica la funcion ConnectedComponents
-        # Imprime un mensaje para indicar la cantidad de componentes conexos encontrados
-        print(">> Se encontraron {} componentes conexos en el Grafo.".format(count))
+                )  # Print topological order with '->' indicating the direction.
+    elif opt == "2":  # Verifies if option 2 was selected.
+        cycles, _ = DFS(G)  # Applies DFS (Depth First Search) to the graph.
+        if cycles:  # Verifies if the graph has cycles.
+            # Print cyclic graph message.
+            print(">> Graph contains at least one cycle.")
+        else:  # No cycles
+            # Prints message for acyclic graph.
+            print(">> No cycles found in the graph.")
+    else:  # If is not option 1 or 2, then it must be option 3.
+        count = ConnectedComponent(G)  # Get the number of connected components of the graph.
+        # Print the amount of connected components found
+        print(">> There where {} connected components found in the graph.".format(count))
 
     print(
-        "\nLa ejecucion del programa ha culminado.\n"
-    )  # Le indica al usuario que el programa termino su ejecucion
+        "\nProgram execution has finished.\n"
+    )  # Indicates the user that program execution is over.
 
 
 main()

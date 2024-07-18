@@ -1,22 +1,22 @@
-# Asignacion de Programacion 1 (PA1) - Alcibiades Bustillo - COMP6785
-# Creado por: Christian Robles
+# Programming Assignment 1 (PA1) - Alcibiades Bustillo - COMP6785
+# Created by: Christian Robles
 
 from LinkedList import LinkedList
 
-# Variables Globales
-time = 0 # contador de los pasos del algoritmo
-t_order = LinkedList() # lista para el orden topologico
+# Global variables
+time = 0 # algorithm step counter
+t_order = LinkedList() # topological order list
 
 # DFS(G)
-# Aplica 'Breath First Search' a un grafo G dado. El proposito
-# en este caso es determinar el order topologico del grafo si 
-# alguno, y a su ves identificar si el grafo tiene ciclos.
-# Entrada:
-# 	G - instancia de la clase Graph
-# Salida:
-# 	devuelve un booleano que indica si se encontraron o no ciclos
-#	en el grafo, y una lista enlazada con el orden topologico de
-# 	haber alguno.
+# Applies 'Breath First Search' to a given graph G. The purpose
+# is to determine the topological order of the graph, if any,
+# while also verifying if there is any cycle in the graph.
+# Parameters:
+# 	G - graph, instance of Graph.
+# Return:
+# 	Returns a boolean that indicates if there was a cycle found
+#	in the graph,and a linked list with the topological order,
+# 	if any.
 def DFS(G):
 	for v in G.V():
 		v.color = 'white'
@@ -27,14 +27,13 @@ def DFS(G):
 				return True, t_order
 	return False, t_order
 
-# _DFS_vist(G, v)
-# Funcion recursiva que ayuda al DFS(G).
-# Entrada:
-# 	G - instancia de la clase Graph
-#	v - vertice de G, instancia de Vertex
-# Salida:
-# 	devuelve un booleano que indica si se encontraron o no ciclos
-#	en el grafo
+# _DFS_visit(G, v)
+# DFS helper function.
+# Parameters:
+# 	G - graph, instance of Graph.
+#	v - node of G, instance de Vertex
+# Returns:
+# 	Returns a boolean that indicate of a cycle was found.
 def _DFS_visit(G, v):
 	global time, t_order
 	v.color = 'gray'

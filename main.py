@@ -1,4 +1,4 @@
-# Project Assignment 1 (PA1) - Alcibiades Bustillo - COMP6785
+# Programming Assignment 1 (PA1) - Alcibiades Bustillo - COMP6785
 # Created by: Christian Robles
 
 from Graph import Graph

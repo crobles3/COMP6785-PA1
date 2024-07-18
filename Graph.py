@@ -1,47 +1,45 @@
-# Asignacion de Programacion 1 (PA1) - Alcibiades Bustillo - COMP6785
-# Creado por: Christian Robles
+# Programming Assignment 1 (PA1) - Alcibiades Bustillo - COMP6785
+# Created by: Christian Robles
 
 from LinkedList import LinkedList
 
 # Vertex
-# Clase utilizada para representar los vertices de 
-# un grafo.
+# Class used to represent the nodes of the graph. 
 # Variables:
-# 	self.__val - valor asignado al vertice
+# 	self.__val - node value
 class Vertex:
-	# __init__(self, value) [constructor de la clase]
-	# Crea una instancia de un vertice, asignandole un valor
-	# Entrada:
-	# 	value - valor a ser asignado
+	# __init__(self, value) [class constructor]
+	# Create an instance od Vertex, assigning a value.
+	# Parameters:
+	# 	value - node value to be assigned.
 	def __init__(self, value):
 		self.__val = value
 
 	# __repr__(self)
-	# Maneja como se va a representar vertice cuando
-	# se imprime en la consola, por ejemplo.
+	# Manages how the node is displayed.
 	def __repr__(self):
 		return str(self.__val)
 
 	# get_value(self)
-	# Devuelve el valor del vertice
-	# Salida:
-	# 	valor del vertice
+	# Returns the value of the node.
+	# Returns:
+	# 	Value of the node.
 	def get_value(self):
 		return self.__val
 
 
 # Graph
-# Clase que implementa la estructura de datos grafo
+# Class that implements a Graph DS.
 # Variables:
-# 	self.__V 		- lista de los vertices del grafo
-# 	self.__E 		- lista de las aristas del grafo
-# 	self.__Adj		- listas de adyacencia en forma de diccionario
-# 	self.__directed - indicador booleano de si el grafo es o no es dirigido
+# 	self.__V 		- list of nodes
+# 	self.__E 		- list of edges
+# 	self.__Adj		- adjacency list
+# 	self.__directed - boolean indicating if the graph is directed or not.
 class Graph:
-	# __init__(self) [constructor de la clase]
-	# Crea una instancia de un grafo y lo inicializa
-	# Entrada:
-	# 	is_dir - indicador booleano de si es o no dirigido el grafo
+	# __init__(self) [class constructor]
+	# Creates and initializes an instance of the graph.
+	# Parameters:
+	# 	is_dir - boolean indicating if os directed or not
 	def __init__(self, is_dir = False):
 		self.__V = []
 		self.__E = []
@@ -49,18 +47,17 @@ class Graph:
 		self.__directed = is_dir
 
 	# __repr__(self)
-	# Maneja como se va a representar el grafo cuando
-	# se imprime en la consola, por ejemplo.
+	# Manages how the graph is displayed.
 	def __repr__(self):
 		vertices = ', '.join(map(lambda v: str(v.get_value()), self.__V))
 		edges = '\n'.join(map(lambda e: '({} {})'.format(e[0], e[1]), self.__E))
 		return '\nVertices:\n' + vertices + '\n\nEdges:\n' + edges
 
 	# add_vertex(self, value):
-	# Añade un nuevo vertice al grafo y crea la lista de adyacencia
-	# respectiva a dicho vertice, si el vertice no existe.
-	# Entrada:
-	# 	value - valor del nuevo vertice
+	# Adds a new node to the graph and creates an adjacency
+	# list respectively if the node is didn't exist.
+	# Parameters:
+	# 	value - new node value.
 	def add_vertex(self, value):
 		_, v = self.find_vertex(value)
 		if v == None:
@@ -69,12 +66,12 @@ class Graph:
 			self.__Adj[value] = LinkedList()
 
 	# find_vertex(self, value):
-	# Encuentra el vertice que concide con el valor dado.
-	# Entrada:
-	# 	value - valor del vertice que se decea buscar
-	# Salida:
-	#	posicion del vertice y el vertice que concide con
-	#	el valor dado, de no concidir devuelve -1 y None
+	# Finds the node corresponding to the given value.
+	# Parameters:
+	# 	value - desired node value.
+	# Return:
+	#	The node's position, and it's Vertex instance.
+	#	If not found it returns -1 y None.
 	def find_vertex(self, value):
 		i = 0
 		for v in self.__V:
@@ -84,12 +81,12 @@ class Graph:
 		return -1, None
 
 	# remove_vertex(self, value):
-	# Remueve el vertice que concide con el valor dado, y de igual
-	# manera lo remueve de las listas de adyacencia correspondientes.
-	# Entrada:
-	# 	value - valor del vertice que se decea eliminar
-	# Salida:
-	#	booleano indicando si el vertice se logro eliminar o no.
+	# Removes the Vertex instance and the adjacency list corresponding
+	# to the provided value.
+	# Parameters:
+	# 	value - value of the node that will be removed.
+	# Returns:
+	#	Boolean indicating if the removal was successful or not.
 	def remove_vertex(self, value):
 		i, v = self.find_vertex(value)
 		if v is None:
@@ -103,14 +100,14 @@ class Graph:
 		return True
 
 	# add_edge(self, tail, point):
-	# Añade una arista con los valores dados para los cuales 
-	# existen vertices en el grafo, y añade los vertices a las 
-	# listas de adyacencia correspondientes.
-	# Entrada:
-	# 	tail  - valor del vertice del cual sale la arista
-	# 	point - valor del vertice en el cual incide la arista
-	# Salida:
-	#	booleano indicando si la arista se logro añadir o no.
+	# Adds the edge corresponding to the given node value pair
+	# that must be already part of the graph, and adds them to
+	# the corresponding adjacency list.
+	# Parameters:
+	# 	tail  - node value from where the edge comes from
+	# 	point - node value from where the edge goes to
+	# Returns:
+	#	Boolean indicating if the edge was added successfully or not.
 	def add_edge(self, tail, point):
 		_, v = self.find_vertex(tail)
 		if v is None:
@@ -127,14 +124,14 @@ class Graph:
 		return True
 
 	# remove_edge(self, tail, point):
-	# Remueve la arista con los valores dados para los cuales 
-	# existen vertices en el grafo, y elimina los vertices de las 
-	# listas de adyacencia correspondientes.
-	# Entrada:
-	# 	tail  - valor del vertice del cual sale la arista
-	# 	point - valor del vertice en el cual incide la arista
-	# Salida:
-	#	booleano indicando si la arista se logro eliminar o no.
+	# Removes the edge corresponding from the given node value pair
+	# that must be already part of the graph, and removes them from
+	# the corresponding adjacency list.
+	# Parameters:
+	# 	tail  - node value from where the edge comes from
+	# 	point - node value from where the edge goes to
+	# Returns:
+	#	Boolean indicating if the edge was removed successfully or not.
 	def remove_edge(self, tail, point):
 		_, v = self.find_vertex(tail)
 		if v is None:
@@ -151,33 +148,32 @@ class Graph:
 		return True
 
 	# V(self)
-	# Devuelve la lista de vertices del grafo
-	# Salida:
-	# 	lista de vertices del grafo
+	# Returns the list of nodes of the graph.
+	# Returns:
+	# 	Node's list.
 	def V(self):
 		return self.__V
 
 	# E(self)
-	# Devuelve la lista de aristas del grafo
-	# Salida:
-	# 	lista de aristas del grafo
+	# Returns the list of edges corresponding to the graph.
+	# Returns:
+	# 	List of edges.
 	def E(self):
 		return self.__E
 
 	# is_directed(self)
-	# Devuelve si el grafo es o no dirirgido
-	# Salida:
-	#	booleano indicando si el grafo es o no dirigido
+	# Return if the graph is directed or not.
+	# Returns:
+	#	Boolean indicating if the graph is directed or not.
 	def is_directed(self):
 		return self.__directed
 
 	# Adj(self, v)
-	# Devuelve la lista de adyacencia correspondiente a un
-	# vertice dado.
-	# Entrada:
-	# 	v - vertice o valor del vertice de interes
-	# Salida:
-	#	lista de adyacencia correspondiente al vertice dado
+	# Returns adjacency list corresponding to the given node.
+	# Parameters:
+	# 	v - value of Vertex instance of the node.
+	# Returns:
+	#	Adjacency list.
 	def Adj(self, v):
 		if isinstance(v, Vertex):
 			return self.__Adj[v.get_value()]

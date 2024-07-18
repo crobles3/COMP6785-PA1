@@ -9,7 +9,7 @@
 # Parameters:
 # 	G - graph, instance of Graph.
 # 	s - node of G, instance of Vertex.
-# Return:
+# Returns:
 # 	No return, but it modifies the nodes
 # 	that can be visited from s.
 def _BFS(G, s):
@@ -32,7 +32,7 @@ def _BFS(G, s):
 # found in a given graph G.
 # Parameters:
 # 	G - graph, instance of Graph
-# Return:
+# Returns:
 # 	Number of connected components.
 def ConnectedComponent(G):
 	for v in G.V():

@@ -13,7 +13,7 @@ t_order = LinkedList() # topological order list
 # while also verifying if there is any cycle in the graph.
 # Parameters:
 # 	G - graph, instance of Graph.
-# Return:
+# Returns:
 # 	Returns a boolean that indicates if there was a cycle found
 #	in the graph,and a linked list with the topological order,
 # 	if any.

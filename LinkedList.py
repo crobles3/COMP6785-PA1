@@ -1,75 +1,75 @@
-# Asignacion de Programacion 1 (PA1) - Alcibiades Bustillo - COMP6785
-# Creado por: Christian Robles
+# Programming Assignment 1 (PA1) - Alcibiades Bustillo - COMP6785
+# Created by: Christian Robles
 
 # _Node
-# Clase utilizada para representar los nodos de 
-# una lista enlazada.
+# Class used to represent nodes in 
+# a linked list.
 # Variables:
-# 	self.__value - valor asignado al nodo
-# 	self.__next  - referencia al proximo nodo
+# 	self.__value - value assigned to the node.
+# 	self.__next  - reference to the next node.
 class _Node:
-	# __init__(self, value, node) [constructor de la clase]
-	# Crea una instancia de un nodo, asignandole un valor y
-	# una referencia al nodo que le sigue. 
-	# Entrada:
-	# 	value - valor a ser asignado
-	# 	node  - instancia siguiente de _Node
+	# __init__(self, value, node) [class constructor]
+	# Creates an instance of a node, assigning it a value
+	# and a reference to the next node (if provided). 
+	# Parameters:
+	# 	value - node's value.
+	# 	node  - next node, instance of _Node.
 	def __init__(self, value, node=None):
 		self.__value = value
 		self.__next = node
 
 	# get_value(self)
-	# Devuelve el valor de la nodo
-	# Salida:
-	# 	valor del node
+	# Returns the node's value.
+	# Returns:
+	# 	Value of the node.
 	def get_value(self):
 		return self.__value
 
 	# get_next(self)
-	# Devuelve el nodo siguiente
-	# Salida:
-	# 	referencia al nodo siguiente
+	# Returns the next node.
+	# Returns:
+	# 	An instance of _Node corresponding to the next node.
 	def get_next(self):
 		return self.__next
 
 	# set_value(self, value)
-	# Asigna un nuevo valor al nodo
-	# Entrada:
-	# 	value - nuevo valor del node
+	# Assigns a new value to the node.
+	# Parameters:
+	# 	value - new value of the node
 	def set_value(self, value):
 		self.__value = value
 
 	# set_next(self, node)
-	# Asigna un nuevo nodo siguiente
-	# Entrada:
-	# 	node - referencia al nuevo nodo siguiente
+	# Assigns a new next node to self.
+	# Parameters:
+	# 	node - reference to the node to be next.
 	def set_next(self, node):
 		self.__next = node
 
 
 
 # LinkedList
-# Clase que implementa la estructura de datos lista enlazada
+# Class that implements the Linked List DS.
 # Variables:
-# 	self.__size - tamaño de la lista
-# 	self.__head - referencia al primer nodo de la lista
-#	self.__n 	- referencia a un nodo para el iterador
+# 	self.__size - size of the linked list.
+# 	self.__head - reference to the first node of the list.
+#	self.__n 	- node reference used in the iterator.
 class LinkedList:
-	# __init__(self) [constructor de la clase]
-	# Crea una instancia de una lista enlazada y la inicializa
+	# __init__(self) [class constructor]
+	# Create and initializes an instance of LinkedList.
 	def __init__(self):
 		self.__size = 0
 		self.__head = None
 
 	# __iter__(self)
-	# Asigna el valor inicial del iterador
+	# Assigns the initial value of the iterator.
 	def __iter__(self):
 		self.__n = self.__head
 		return self
 
 	# __next__(self)
-	# Se encarga de actualizar el valor del iterador y
-	# maneja el caso cuando se termina de iterar la list.
+	# Modifies the value of the iterator and manages
+	# the case where the iterator has reached the end.
 	def __next__(self):
 		if self.__n != None:
 			node = self.__n
@@ -79,20 +79,19 @@ class LinkedList:
 			raise StopIteration
 
 	# __repr__(self)
-	# Maneja como se va a representar la lista cuando
-	# se imprime en la consola, por ejemplo.
+	# Manages how a linked list will be displayed.
 	def __repr__(self):
 		arr = self.to_array()
 		arr.append('None')
 		return ' -> '.join(arr)
 
 	# add_element(self, elem):
-	# Añade un nuevo elemento al final de la lista.
-	# Entrada:
-	# 	elem - elemento a ser añadido
-	# Salida:
-	# 	booleano indicando si el elemento se añadio
-	#	exitosamento o no.
+	# Adds a new element to the end of the list.
+	# Parameters:
+	# 	elem - new element.
+	# Returns:
+	# 	Boolean indicating if the operation was
+	# 	successful or not.
 	def add_element(self, elem):
 		new_node = _Node(elem)
 		if self.__head == None:
@@ -106,13 +105,13 @@ class LinkedList:
 		return True
 
 	# add_at(self, pos, elem):
-	# Añade un nuevo elemento en una posicion dada de la lista.
-	# Entrada:
-	# 	pos  - posicion de la lista donde se desea añadir
-	# 	elem - elemento a ser añadido
-	# Salida:
-	# 	booleano indicando si el elemento se añadio
-	#	exitosamento o no.
+	# Adds a new element in a given position of the list.
+	# Parameters:
+	# 	pos  - position in the list.
+	# 	elem - new element.
+	# Returns:
+	# 	Boolean indicating if the operation was
+	# 	successful or not.
 	def add_at(self, pos, elem):
 		if pos < 0 or pos > self.__size:
 			return False
@@ -131,12 +130,12 @@ class LinkedList:
 		return True
 
 	# remove_element(self, elem):
-	# Elimina un elemento de la lista dado el elemento.
-	# Entrada:
-	# 	elem - elemento a ser eliminado
-	# Salida:
-	# 	booleano indicando si el elemento se elimino
-	#	exitosamento o no.
+	# Remove the given element from the list.
+	# Parameters:
+	# 	elem - element to be removed.
+	# Returns:
+	# 	Boolean indicating if the operation was
+	# 	successful or not.
 	def remove_element(self, elem):
 		node = self.__head
 		if node.get_value() == elem:
@@ -153,12 +152,12 @@ class LinkedList:
 		return False
 
 	# remove_from(self, pos):
-	# Elimina un elemento de la lista dado una posicion.
-	# Entrada:
-	# 	pos - posicion de la lista de donde se desea remover
-	# Salida:
-	# 	booleano indicando si el elemento se elimino
-	#	exitosamento o no.
+	# Removes the element in the given position.
+	# Parameters:
+	# 	pos - position in the list to be removed.
+	# Returns:
+	# 	Boolean indicating if the operation was
+	# 	successful or not.
 	def remove_from(self, pos):
 		if pos < 0 or pos >= self.__size:
 			return False
@@ -175,12 +174,12 @@ class LinkedList:
 		return True
 
 	# index_of(self, elem)
-	# Devuelve la posicion de un elemento dado en la lista.
-	# Entrada:
-	# 	elem - elemento que se desea encontrar
-	# Salida:
-	# 	posicion en la lista del elemento dado, o -1 si el 
-	#	elemento no se encuentra en la lista
+	# Returns the position of the given element.
+	# Parameters:
+	# 	elem - element to be found.
+	# Returns:
+	# 	Position of the given element, or -1 if the 
+	#	is not found in the list.
 	def index_of(self, elem):
 		node, i = self.__head, 0
 		while node != None:
@@ -191,12 +190,12 @@ class LinkedList:
 		return -1
 
 	# elem_at(self, pos)
-	# Devuelve el elemento que se encuentra en una posicion dada de la lista.
-	# Entrada:
-	# 	pos - posicion en la lista en la cual se desea buscar
-	# Salida:
-	# 	elemento de la lista en la posicion dada, o None si la 
-	#	posicion se sale de los limites de la lista
+	# Returns the element found on a given position.
+	# Parameters:
+	# 	pos - position in the list.
+	# Returns:
+	# 	Element found in the given position, or None if the
+	#	if the position goes out of bounds.
 	def elem_at(self, pos):
 		if pos < 0 or pos >= self.__size:
 			return None
@@ -206,31 +205,31 @@ class LinkedList:
 		return node.get_value()
 
 	# contains(self, elem)
-	# Verifica si el elemento dado esta en la lista.
-	# Entrada:
-	# 	elem - elemento que se desea encontrar
-	# Salida:
-	# 	Booleano indicando si el elemento se encontro o no
+	# Verifies if an element is found in the list.
+	# Parameters:
+	# 	elem - element to be looked for.
+	# Returns:
+	# 	Boolean indicating if it is found or not in the list.
 	def contains(self, elem):
 		return self.index_of(elem) > -1
 
 	# size(self)
-	# Devuelve el tamaño de la lista.
-	# Salida:
-	# 	tamaño de la lista
+	# Returns the size of the list.
+	# Returns:
+	# 	List size.
 	def size(self):
 		return self.__size
 
 	# empty(self)
-	# Elimina todos los elementos de la lista.
+	# Removes all the elements from the list.
 	def empty(self):
 		while self.__head != None:
 			self.remove_from(0)
 
 	# to_array(self)
-	# Devuelve un arreglo con los elementos de la lista
-	# Salida:
-	# 	arreglo con los elementos de la lista
+	# Returns an array list of the elements of the linked list.
+	# Returns:
+	# 	Array list with the elements.
 	def to_array(self):
 		array = []
 		for elem in self:

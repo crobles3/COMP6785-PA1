@@ -1,1 +1,1 @@
-# graph_operations
+# COMP6785 - Project Assignment

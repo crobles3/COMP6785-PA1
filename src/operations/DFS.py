@@ -1,7 +1,7 @@
 # Programming Assignment 1 (PA1) - Alcibiades Bustillo - COMP6785
 # Created by: Christian Robles
 
-from LinkedList import LinkedList
+from structures import LinkedList
 
 # Global variables
 time = 0 # algorithm step counter

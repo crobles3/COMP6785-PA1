@@ -1,9 +1,8 @@
 # Programming Assignment 1 (PA1) - Alcibiades Bustillo - COMP6785
 # Created by: Christian Robles
 
-from Graph import Graph
-from DFS import *
-from ConnectedComponent import *
+from structures import Graph
+from operations import DFS, ConnectedComponent as CC
 
 
 def main():
@@ -55,7 +54,7 @@ def main():
                 "File Name (without .txt): "
             )  # User provide the name of the file.
             file = open(
-                "data/" + name + ".txt", "r"
+                "./data/" + name + ".txt", "r"
             )  # Looks and opens the .txt file in the data folder.
             break  # Exit infinite loop.
         except:  # Catches if an error occurs trying to open the file.
@@ -152,7 +151,7 @@ def main():
             # Prints message for acyclic graph.
             print(">> No cycles found in the graph.")
     else:  # If is not option 1 or 2, then it must be option 3.
-        count = ConnectedComponent(G)  # Get the number of connected components of the graph.
+        count = CC(G)  # Get the number of connected components of the graph.
         # Print the amount of connected components found
         print(">> There where {} connected components found in the graph.".format(count))
 
@@ -161,4 +160,5 @@ def main():
     )  # Indicates the user that program execution is over.
 
 
-main()
+if __name__ == "__main__":
+    main()

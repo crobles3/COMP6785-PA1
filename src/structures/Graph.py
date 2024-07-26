@@ -1,13 +1,13 @@
 # Programming Assignment 1 (PA1) - Alcibiades Bustillo - COMP6785
 # Created by: Christian Robles
 
-from LinkedList import LinkedList
+from . import LinkedList
 
 # Vertex
 # Class used to represent the nodes of the graph. 
 # Variables:
 # 	self.__val - node value
-class Vertex:
+class _Vertex:
 	# __init__(self, value) [class constructor]
 	# Create an instance od Vertex, assigning a value.
 	# Parameters:
@@ -61,7 +61,7 @@ class Graph:
 	def add_vertex(self, value):
 		_, v = self.find_vertex(value)
 		if v == None:
-			v = Vertex(value)
+			v = _Vertex(value)
 			self.__V.append(v)
 			self.__Adj[value] = LinkedList()
 
@@ -175,7 +175,7 @@ class Graph:
 	# Returns:
 	#	Adjacency list.
 	def Adj(self, v):
-		if isinstance(v, Vertex):
+		if isinstance(v, _Vertex):
 			return self.__Adj[v.get_value()]
 		else:
 			return self.__Adj[v]

@@ -12,7 +12,7 @@
 # Returns:
 # 	No return, but it modifies the nodes
 # 	that can be visited from s.
-def _BFS(G, s):
+def BFS(G, s):
 	s.color = 'gray'
 	s.d = 0
 	s.pred = None 
@@ -26,22 +26,3 @@ def _BFS(G, s):
 				v.pred = u
 				Q.append(v)
 		u.color = 'black'
-
-# ConnectedComponents(G)
-# Counts the number of connected components
-# found in a given graph G.
-# Parameters:
-# 	G - graph, instance of Graph
-# Returns:
-# 	Number of connected components.
-def ConnectedComponent(G):
-	for v in G.V():
-		v.color = 'white'
-		v.d = float('inf')
-		v.pred = None 
-	c = 0
-	for v in G.V():
-		if v.color == 'white':
-			c += 1
-			_BFS(G, v)
-	return c
